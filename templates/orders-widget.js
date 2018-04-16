@@ -9,7 +9,7 @@
 
     methods: {
         async reloadOrders() {
-            window.orders = await readOrders();
+            window.orders.splice(0, window.orders.length, ...(await readOrders()));
         },
 
         async createOrder() {
