@@ -8,22 +8,11 @@
     },
 
     methods: {
-        async reloadOrders() {
-            window.orders.splice(0, window.orders.length, ...(await readOrders()));
-        },
-
         async createOrder() {
-            var key = firebase.database().ref().child('orders').push().key;
-
-            var updates = {};
-            updates[`/orders/${key}`] = {
-                name: this.newOrder.name,
-                price: parseFloat(this.newOrder.price)
-            };
-
-            firebase.database().ref().update(updates);
-
-            await this.reloadOrders();
+            await DAL.newPost({ 
+                name: this.newOrder.name, 
+                price: parseFloat(this.newOrder.price) 
+            });
         }
     }
 }))();
